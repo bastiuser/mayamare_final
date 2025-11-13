@@ -541,7 +541,7 @@ class SignupFormState extends State<SignupForm> {
                                         InkWell(
                                           onTap: () async {
                                             final url = Uri.parse(
-                                                'https://waterslide.works/app/privacy');
+                                                'https://waterslide.works/static/datenschutz.html');
                                             if (!await launchUrl(
                                               url,
                                               mode: LaunchMode

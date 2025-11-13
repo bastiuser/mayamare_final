@@ -70,7 +70,7 @@ class _SocialAuthSheetState extends State<SocialAuthSheet> {
       );
   }
 
-  Future<void> _sendGoogleIdTokenToBackend(String? idToken,String platform) async {
+  Future<void> _sendTokenToBackend(String? idToken, String platform) async {
     final uri = Uri.parse('$_apiBase/loginvia${platform.toLowerCase()}');
     try {
       final resp = await http
@@ -153,7 +153,7 @@ class _SocialAuthSheetState extends State<SocialAuthSheet> {
       final googleAuth = await googleUser.authentication;
       debugPrint('Google Access Token: ${googleAuth.accessToken}');
       debugPrint('Google ID Token:     ${googleAuth.idToken}');
-      await _sendGoogleIdTokenToBackend(googleAuth.idToken,"Google");
+      await _sendTokenToBackend(googleAuth.idToken, "Google");
 
       if (mounted) Navigator.pop(context, 'google');
       // -> Tokens sicher ans Backend senden
@@ -174,6 +174,8 @@ class _SocialAuthSheetState extends State<SocialAuthSheet> {
           final accessToken = result.accessToken!;
           debugPrint('Facebook Access Token: ${accessToken.token}');
           debugPrint('Facebook User ID:      ${accessToken.userId}');
+          await _sendTokenToBackend(accessToken.token, "Facebook");
+
           if (mounted) Navigator.pop(context, 'facebook');
           break;
         case LoginStatus.cancelled:
@@ -204,6 +206,8 @@ class _SocialAuthSheetState extends State<SocialAuthSheet> {
       debugPrint('Apple userIdentifier:   ${credential.userIdentifier}');
       debugPrint('Apple authorizationCode:${credential.authorizationCode}');
       debugPrint('Apple identityToken:    ${credential.identityToken}');
+      await _sendTokenToBackend(credential.identityToken, "Apple");
+
       if (mounted) Navigator.pop(context, 'apple');
       // -> Code/Token ans Backend
     } catch (e) {
