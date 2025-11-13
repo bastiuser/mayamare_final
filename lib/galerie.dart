@@ -220,8 +220,8 @@ class _GalerieState extends State<Galerie> {
                       height: h * 0.39,
                       child: Stack(children: [
                         Positioned(
-                          left: w * 0.8,
-                          top: 0,
+                          left: w * 0.7,
+                          top: 30,
                           height: h * 0.10,
                           child: Padding(
                             padding: const EdgeInsets.only(right: 20),
@@ -229,9 +229,9 @@ class _GalerieState extends State<Galerie> {
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
                                 Image(
-                                  image: AssetImage('assets/newlogo.png'),
-                                  width: 100,
-                                  height: 100,
+                                  image: AssetImage('assets/new_mayamare.png'),
+                                  width: 150,
+                                  height: 150,
                                 ),
                               ],
                             ),

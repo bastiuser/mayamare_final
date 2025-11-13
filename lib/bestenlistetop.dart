@@ -54,7 +54,7 @@ class BestenListeTop extends StatelessWidget {
                 children: [
                   Image(
                     image:
-                        AssetImage('assets/newlogo.png'),
+                        AssetImage('assets/new_mayamare.png'),
                     width: 150,
                     height: 150,
                   ),
