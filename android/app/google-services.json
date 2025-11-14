@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "335871341684-59u80qm05bb3344jfv11qhbk6ndvoh3u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "at.maya_mare",
+            "certificate_hash": "1d81d3dd56ddd573a2a63bb7288ef4fbbad6b737"
+          }
+        },
+        {
           "client_id": "335871341684-721ssttlnvqv4luseqch7a4kgkstmuba.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
