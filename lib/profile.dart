@@ -15,6 +15,7 @@ import 'signup.dart';
 import 'UserStore.dart';
 import 'InputBoxForm.dart';
 import 'package:image_picker/image_picker.dart'; // Für den Zugriff auf die Galerie
+import 'package:url_launcher/url_launcher.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -363,7 +364,7 @@ class ProfileState extends State<Profile>
                                             )),
                                       ),
                                     ),
-                                    Center(
+                                    /*Center(
                                       child: Padding(
                                         padding:
                                             const EdgeInsets.only(bottom: 12),
@@ -389,7 +390,7 @@ class ProfileState extends State<Profile>
                                           ),
                                         ),
                                       ),
-                                    ),
+                                    ),*/
                                     Center(
                                       child: Padding(
                                         padding:
@@ -402,7 +403,19 @@ class ProfileState extends State<Profile>
                                               backgroundColor:
                                                   Color(0xFFD9D9D9),
                                             ),
-                                            onPressed: () {},
+                                            onPressed: () async {
+                                              final url = Uri.parse(
+                                                  'https://waterslide.works/static/datenschutz.html'); // <-- deine URL
+
+                                              if (!await launchUrl(
+                                                url,
+                                                mode: LaunchMode
+                                                    .externalApplication, // öffnet im Browser
+                                              )) {
+                                                throw Exception(
+                                                    'Konnte URL nicht öffnen');
+                                              }
+                                            },
                                             child: const Text(
                                               'DSGVO',
                                               style: TextStyle(
@@ -429,8 +442,54 @@ class ProfileState extends State<Profile>
                                               backgroundColor:
                                                   Color(0xFFD9D9D9),
                                             ),
-                                            onPressed: () {
-                                              deleteAccount();
+                                            onPressed: () async {
+                                              final confirmed =
+                                                  await showDialog<bool>(
+                                                context: context,
+                                                barrierDismissible:
+                                                    false, // nur über Buttons schließen
+                                                builder: (ctx) {
+                                                  return AlertDialog(
+                                                    title: const Text(
+                                                        'Account löschen'),
+                                                    content: const Text(
+                                                      'Möchten Sie Ihren Account wirklich unwiderruflich löschen?',
+                                                    ),
+                                                    actions: [
+                                                      TextButton(
+                                                        onPressed: () {
+                                                          Navigator.of(ctx).pop(
+                                                              false); // Abbruch
+                                                        },
+                                                        child: const Text(
+                                                            'Abbrechen'),
+                                                      ),
+                                                      TextButton(
+                                                        onPressed: () {
+                                                          Navigator.of(ctx).pop(
+                                                              true); // Bestätigt
+                                                        },
+                                                        child: const Text(
+                                                          'Ja, löschen',
+                                                          style: TextStyle(
+                                                            color:
+                                                                Color.fromARGB(
+                                                                    255,
+                                                                    190,
+                                                                    1,
+                                                                    1),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  );
+                                                },
+                                              );
+
+                                              if (confirmed == true) {
+                                                // falls deleteAccount async ist -> await deleteAccount();
+                                                deleteAccount();
+                                              }
                                             },
                                             child: const Text(
                                               'Löschen',

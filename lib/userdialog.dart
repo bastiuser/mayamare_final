@@ -295,8 +295,8 @@ class _UsernameDialogState extends State<_UsernameDialog> {
                   Expanded(
                     child: InkWell(
                       onTap: () async {
-                        final uri =
-                            Uri.parse('https://waterslide.works/static/datenschutz.html');
+                        final uri = Uri.parse(
+                            'https://waterslide.works/static/datenschutz.html');
                         await launchUrl(
                           uri,
                           mode: LaunchMode.externalApplication,

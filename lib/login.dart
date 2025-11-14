@@ -287,7 +287,7 @@ class LoginFormState extends State<LoginForm> {
                             width: w * 0.7,
                             height: w * 0.4,
                             child: const Text(
-                              'Willkommen\nin der Therme\nThermenname',
+                              'Willkommen\nbei Maya Mare',
                               style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 30,

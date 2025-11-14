@@ -31,7 +31,7 @@ class _SocialAuthSheetState extends State<SocialAuthSheet> {
   final GoogleSignIn _googleSignIn = GoogleSignIn(
     scopes: ['email', 'profile', 'openid'],
     serverClientId:
-        '86165855541-luj5bjeikj99obs2cfliriaf8j2i3b96.apps.googleusercontent.com',
+        '335871341684-ike7vrlljreagt51nt1dj7en6677s2hv.apps.googleusercontent.com',
   );
   static const String _apiBase = 'https://waterslide.works/app';
 
@@ -111,6 +111,7 @@ class _SocialAuthSheetState extends State<SocialAuthSheet> {
       await prefs.setString('cookie', cookie);
       if (email != null) await prefs.setString('mail', email);
       if (mounted) {
+        print("Mounted");
         Provider.of<UserStore>(context, listen: false).setCook(cookie ?? '');
         if (email != null) {
           Provider.of<UserStore>(context, listen: false).changeMail(email);
@@ -118,9 +119,7 @@ class _SocialAuthSheetState extends State<SocialAuthSheet> {
         if (user != null) {
           Provider.of<UserStore>(context, listen: false).changeName(user);
         }
-        if (email != null) {
-          context.go('/navigationscreen'); // Erfolg → Dialog schließen
-        }
+        context.go('/navigationscreen'); // Erfolg → Dialog schließen
       }
     } on SocketException {
       // z. B. Flugmodus, WLAN/Mobilfunk weg, DNS nicht erreichbar

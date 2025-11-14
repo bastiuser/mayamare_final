@@ -1,4 +1,4 @@
-package com.example.flutter_application_wead
+package com.example.maya_mare
 
 import io.flutter.embedding.android.FlutterActivity
 

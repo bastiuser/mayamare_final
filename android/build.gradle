@@ -1,13 +1,21 @@
 buildscript {
+    // 👉 Kotlin-Version hochziehen, damit sie zu deinen Libs (1.8.x) passt
+    ext.kotlin_version = '1.8.22'
+
     repositories {
         google()
         mavenCentral()
     }
+
     dependencies {
-        // 👇 Das ist nötig für Google Sign-In mit google-services.json
+        // Kotlin Gradle Plugin
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+
+        // Google Services Plugin (für google-services.json)
         classpath 'com.google.gms:google-services:4.4.3'
     }
 }
+
 allprojects {
     repositories {
         google()
@@ -16,9 +24,11 @@ allprojects {
 }
 
 rootProject.buildDir = "../build"
+
 subprojects {
     project.buildDir = "${rootProject.buildDir}/${project.name}"
 }
+
 subprojects {
     project.evaluationDependsOn(":app")
 }
