@@ -272,12 +272,12 @@ class _SocialAuthSheetState extends State<SocialAuthSheet> {
             const SizedBox(height: 12),
 
             // Facebook
-            SignInButton(
+            /*SignInButton(
               Buttons.facebookNew,
               text: 'Weiter mit Facebook',
               onPressed: _loginWithFacebook,
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: 12),*/
 
             // Apple nur auf Apple-Plattformen
             if (_isApplePlatform) ...[
