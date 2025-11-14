@@ -28,7 +28,7 @@ if (flutterVersionName == null) {
 }
 
 android {
-    namespace = "com.example.maya_mare"
+    namespace = "at.maya_mare"
 
     // audioplayers_android will 35
     compileSdk = 34
@@ -51,9 +51,9 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.example.maya_mare"
+        applicationId = "at.maya_mare"
         minSdk = flutter.minSdkVersion
-        targetSdk = 34   // kannst du auf 35 setzen, passt zur compileSdk
+        targetSdk = 35   // kannst du auf 35 setzen, passt zur compileSdk
         versionCode = flutterVersionCode.toInteger()
         versionName = flutterVersionName
     }

@@ -695,7 +695,7 @@ class NetworkImageWithHeaders extends ImageProvider<NetworkImageWithHeaders> {
   }
 
   @override
-  int get hashCode => ui.hashValues(url, headers);
+  int get hashCode => Object.hash(url, headers);
 
   @override
   String toString() => '$runtimeType("$url", headers: $headers)';
