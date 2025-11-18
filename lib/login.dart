@@ -219,7 +219,6 @@ class LoginFormState extends State<LoginForm> {
     var date = prefs.getString('lastLogin') ?? "";
     var uid = prefs.getBool('uid') ?? false;
     var lastScanned = prefs.getString('scan') ?? "";
-    print(prefs.getString('mail'));
     if (date.isNotEmpty) {
       final loginDate = DateTime.parse(date);
       final now = DateTime.now();

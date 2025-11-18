@@ -68,7 +68,6 @@ class SignupFormState extends State<SignupForm> {
 
     final responseJson = jsonDecode(response.body) as Map<String, dynamic>;
     final sign = Signup.fromJson(responseJson);
-    print(sign.getsucc());
     final reason = responseJson['reason'];
     if (sign.getsucc()) {
       // optional SnackBar

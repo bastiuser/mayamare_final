@@ -124,11 +124,9 @@ class _UsernameDialogState extends State<_UsernameDialog> {
           return;
         }
         final userexists = json['userexits'];
-        print("hi+$userexists");
         if (userexists) {
           setState(() => _inlineError =
               "Username existiert, bitte einen anderen verwenden");
-          print("oascj");
           return;
         }
         final String? mail = json['mail'];

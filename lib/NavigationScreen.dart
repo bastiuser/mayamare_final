@@ -77,7 +77,6 @@ class _NavigationScreenState extends State<NavigationScreen> {
   // Animationseigenschaften
   double _backgroundPosition = 1; // Startet bei Index 1
   Future<List<Slides>> populate() async {
-    print("Cookie:${Provider.of<UserStore>(context, listen: false).cookie}");
 
     /*final prefs = await SharedPreferences.getInstance();
     String cook = prefs.getString('cookie') ?? "";

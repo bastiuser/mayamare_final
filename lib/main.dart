@@ -160,7 +160,7 @@ class MyApp extends StatelessWidget {
           // Hier wird die MediaQuery überschrieben, um die Textskalierung und Display-Größenanpassung zu verhindern
           final mediaQueryData = MediaQuery.of(context);
 
-          return SafeArea(
+          return SafeArea(//für die native top und bottom bar zu steuern
             bottom: true,
             child: MediaQuery(
               data: mediaQueryData.copyWith(

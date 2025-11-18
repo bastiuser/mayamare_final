@@ -79,7 +79,6 @@ class _GalerieState extends State<Galerie> {
           'Cookie': Provider.of<UserStore>(context, listen: false).cookie,
         },
       );
-      print(response.body);
 
       // Wenn erfolgreich geladen, Internet-Flag zurücksetzen
       if (_noInternet) {
