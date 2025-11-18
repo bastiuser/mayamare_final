@@ -14,6 +14,7 @@ import 'nfcscanner.dart';
 import 'package:flutter/services.dart';
 import 'UserStore.dart';
 import 'slidepicker.dart';
+
 void main() async {
   WidgetsFlutterBinding
       .ensureInitialized(); // Stelle sicher, dass alles initialisiert ist
@@ -160,7 +161,9 @@ class MyApp extends StatelessWidget {
           // Hier wird die MediaQuery überschrieben, um die Textskalierung und Display-Größenanpassung zu verhindern
           final mediaQueryData = MediaQuery.of(context);
 
-          return SafeArea(//für die native top und bottom bar zu steuern
+          return SafeArea(
+            //für die native top und bottom bar zu steuern
+            top: false,
             bottom: true,
             child: MediaQuery(
               data: mediaQueryData.copyWith(
