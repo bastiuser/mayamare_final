@@ -30,6 +30,14 @@
           }
         },
         {
+          "client_id": "335871341684-qma2jn9ng3nerrcneoj1d3rfkdcdb86l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "at.maya_mare",
+            "certificate_hash": "873ea0215c6e4876289a67062893627111b22586"
+          }
+        },
+        {
           "client_id": "335871341684-tjs8ps707rk9km626386v309sqdudd3c.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

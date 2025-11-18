@@ -20,7 +20,10 @@ void main() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   String initialRoute =
       prefs.getString('initialRoute') ?? '/'; // Standardwert ist '/'
-
+  SystemChrome.setEnabledSystemUIMode(
+    SystemUiMode.manual,
+    overlays: SystemUiOverlay.values, // Status + Nav-Bar ganz normal
+  );
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp, // Locks the app in portrait mode
   ]).then((_) {
@@ -157,15 +160,18 @@ class MyApp extends StatelessWidget {
           // Hier wird die MediaQuery überschrieben, um die Textskalierung und Display-Größenanpassung zu verhindern
           final mediaQueryData = MediaQuery.of(context);
 
-          return MediaQuery(
-            data: mediaQueryData.copyWith(
-              textScaler: TextScaler.linear(
-                  1.1), // Verhindert Textskalierung durch Geräteeinstellungen
-              size: mediaQueryData.size, // Beibehaltung der Bildschirmgröße
-              devicePixelRatio:
-                  1.0, // Verhindert die Anzeigegröße-Anpassung durch Gerät
+          return SafeArea(
+            bottom: true,
+            child: MediaQuery(
+              data: mediaQueryData.copyWith(
+                textScaler: TextScaler.linear(
+                    1.1), // Verhindert Textskalierung durch Geräteeinstellungen
+                size: mediaQueryData.size, // Beibehaltung der Bildschirmgröße
+                devicePixelRatio:
+                    1.0, // Verhindert die Anzeigegröße-Anpassung durch Gerät
+              ),
+              child: child!,
             ),
-            child: child!,
           );
         },
       ),
