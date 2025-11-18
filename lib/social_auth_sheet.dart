@@ -71,6 +71,7 @@ class _SocialAuthSheetState extends State<SocialAuthSheet> {
   }
 
   Future<void> _sendTokenToBackend(String? idToken, String platform) async {
+    print("Here");
     final uri = Uri.parse('$_apiBase/loginvia${platform.toLowerCase()}');
     try {
       final resp = await http
@@ -87,7 +88,7 @@ class _SocialAuthSheetState extends State<SocialAuthSheet> {
       final Map<String, dynamic> json = jsonDecode(resp.body);
       final success = json['success'];
       final prefs = await SharedPreferences.getInstance();
-
+      print(json);
       if (!success) {
         _showErrorSnack(
           '$platform-Login fehlgeschlagen',
