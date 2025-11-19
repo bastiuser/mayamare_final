@@ -91,7 +91,7 @@ class _SlidepickerState extends State<Slidepicker> {
   int get _customThemeIndex {
     final i = musicOptions.indexWhere((o) => o.value == _selectedStyle);
     return i < 0 ? 0 : i; // Fallback auf 0, wenn nichts gefunden
-    }
+  }
 
   @override
   void initState() {
@@ -285,13 +285,16 @@ class _SlidepickerState extends State<Slidepicker> {
         _audios = items;
         _audioPlayers
           ..clear()
-          ..addAll(List<AudioPlayer?>.filled(_audios.length, null, growable: true));
+          ..addAll(
+              List<AudioPlayer?>.filled(_audios.length, null, growable: true));
         _positions
           ..clear()
-          ..addAll(List<Duration>.filled(_audios.length, Duration.zero, growable: true));
+          ..addAll(List<Duration>.filled(_audios.length, Duration.zero,
+              growable: true));
         _durations
           ..clear()
-          ..addAll(List<Duration>.filled(_audios.length, Duration.zero, growable: true));
+          ..addAll(List<Duration>.filled(_audios.length, Duration.zero,
+              growable: true));
       });
 
       for (int i = 0; i < _audios.length && mounted; i++) {
@@ -725,7 +728,8 @@ class _SlidepickerState extends State<Slidepicker> {
                       ),
                       SizedBox(width: w * 0.015),
                       Padding(
-                        padding: EdgeInsets.only(bottom: h * 0.02, top: h * 0.01),
+                        padding:
+                            EdgeInsets.only(bottom: h * 0.02, top: h * 0.01),
                         child: SizedBox(
                           height: h * 0.10 - h * 0.01,
                           child: FilledButton.icon(
@@ -735,7 +739,8 @@ class _SlidepickerState extends State<Slidepicker> {
                             icon: const Icon(Icons.bookmark_add_outlined),
                             label: const Text('Speichern'),
                             style: FilledButton.styleFrom(
-                              padding: EdgeInsets.symmetric(horizontal: w * 0.02),
+                              padding:
+                                  EdgeInsets.symmetric(horizontal: w * 0.02),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(12),
                               ),
@@ -783,9 +788,10 @@ class _SlidepickerState extends State<Slidepicker> {
                                 onPageChanged: _onPageChanged,
                                 itemCount: _videos.length,
                                 itemBuilder: (context, index) {
-                                  final controller = (index < _videoControllers.length)
-                                      ? _videoControllers[index]
-                                      : null;
+                                  final controller =
+                                      (index < _videoControllers.length)
+                                          ? _videoControllers[index]
+                                          : null;
                                   if (controller == null) {
                                     return const Center(
                                       child: CircularProgressIndicator(),
@@ -887,7 +893,8 @@ class _SlidepickerState extends State<Slidepicker> {
     final match = re.firstMatch(_audios[index].url);
     String? firstWord = match?.group(1);
     if (firstWord != null) {
-      firstWord = firstWord[0].toUpperCase() + firstWord.substring(1).toLowerCase();
+      firstWord =
+          firstWord[0].toUpperCase() + firstWord.substring(1).toLowerCase();
     }
     final currentPos = _positions[index];
     final totalDur = _durations[index];
@@ -916,8 +923,9 @@ class _SlidepickerState extends State<Slidepicker> {
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Text('$firstWord', style: const TextStyle(fontSize: 16)),
-                        const SizedBox(height: 7),
+                        Text('$firstWord',
+                            style: const TextStyle(fontSize: 16)),
+                        //const SizedBox(height: 7),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -925,24 +933,29 @@ class _SlidepickerState extends State<Slidepicker> {
                             Text(_formatDuration(totalDur)),
                           ],
                         ),
-                        Slider(
-                          min: 0.0,
-                          max: (totalDur.inMilliseconds > 0
-                              ? totalDur.inMilliseconds.toDouble()
-                              : 1.0),
-                          value: (totalDur.inMilliseconds > 0
-                              ? currentPos.inMilliseconds
-                                  .toDouble()
-                                  .clamp(0.0, totalDur.inMilliseconds.toDouble())
-                              : 0.0),
-                          onChanged: (totalDur.inMilliseconds > 0)
-                              ? (newValue) {
-                                  final clamped = newValue
-                                      .clamp(0.0, totalDur.inMilliseconds.toDouble());
-                                  _seekTo(index,
-                                      Duration(milliseconds: clamped.round()));
-                                }
-                              : null,
+                        SizedBox(
+                          height: 24, // oder 24 o.Ä.
+
+                          child: Slider(
+                            min: 0.0,
+                            max: (totalDur.inMilliseconds > 0
+                                ? totalDur.inMilliseconds.toDouble()
+                                : 1.0),
+                            value: (totalDur.inMilliseconds > 0
+                                ? currentPos.inMilliseconds.toDouble().clamp(
+                                    0.0, totalDur.inMilliseconds.toDouble())
+                                : 0.0),
+                            onChanged: (totalDur.inMilliseconds > 0)
+                                ? (newValue) {
+                                    final clamped = newValue.clamp(0.0,
+                                        totalDur.inMilliseconds.toDouble());
+                                    _seekTo(
+                                        index,
+                                        Duration(
+                                            milliseconds: clamped.round()));
+                                  }
+                                : null,
+                          ),
                         )
                       ],
                     ),

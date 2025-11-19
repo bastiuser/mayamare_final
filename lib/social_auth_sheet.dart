@@ -71,7 +71,6 @@ class _SocialAuthSheetState extends State<SocialAuthSheet> {
   }
 
   Future<void> _sendTokenToBackend(String? idToken, String platform) async {
-    print("Here");
     final uri = Uri.parse('$_apiBase/loginvia${platform.toLowerCase()}');
     try {
       final resp = await http
@@ -88,7 +87,6 @@ class _SocialAuthSheetState extends State<SocialAuthSheet> {
       final Map<String, dynamic> json = jsonDecode(resp.body);
       final success = json['success'];
       final prefs = await SharedPreferences.getInstance();
-      print(json);
       if (!success) {
         _showErrorSnack(
           '$platform-Login fehlgeschlagen',
@@ -108,11 +106,9 @@ class _SocialAuthSheetState extends State<SocialAuthSheet> {
       }
       final email = json['mail'];
       final user = json['username'];
-      print(email);
       await prefs.setString('cookie', cookie);
       if (email != null) await prefs.setString('mail', email);
       if (mounted) {
-        print("Mounted");
         Provider.of<UserStore>(context, listen: false).setCook(cookie ?? '');
         if (email != null) {
           Provider.of<UserStore>(context, listen: false).changeMail(email);
@@ -151,14 +147,11 @@ class _SocialAuthSheetState extends State<SocialAuthSheet> {
       final googleUser = await _googleSignIn.signIn();
       if (googleUser == null) return; // abgebrochen
       final googleAuth = await googleUser.authentication;
-      debugPrint('Google Access Token: ${googleAuth.accessToken}');
-      debugPrint('Google ID Token:     ${googleAuth.idToken}');
       await _sendTokenToBackend(googleAuth.idToken, "Google");
 
       if (mounted) Navigator.pop(context, 'google');
       // -> Tokens sicher ans Backend senden
     } catch (e) {
-      debugPrint('Google Sign-In Fehler: $e');
       _snack('Google-Anmeldung fehlgeschlagen');
     } finally {
       _setBusy(false);
@@ -172,8 +165,7 @@ class _SocialAuthSheetState extends State<SocialAuthSheet> {
       switch (result.status) {
         case LoginStatus.success:
           final accessToken = result.accessToken!;
-          debugPrint('Facebook Access Token: ${accessToken.token}');
-          debugPrint('Facebook User ID:      ${accessToken.userId}');
+          
           await _sendTokenToBackend(accessToken.token, "Facebook");
 
           if (mounted) Navigator.pop(context, 'facebook');
@@ -187,7 +179,6 @@ class _SocialAuthSheetState extends State<SocialAuthSheet> {
           _snack('Unbekannter Facebook-Status: ${result.status}');
       }
     } catch (e) {
-      debugPrint('Facebook Login Exception: $e');
       _snack('Facebook-Anmeldung fehlgeschlagen');
     } finally {
       _setBusy(false);
@@ -203,9 +194,9 @@ class _SocialAuthSheetState extends State<SocialAuthSheet> {
           AppleIDAuthorizationScopes.fullName,
         ],
       );
-      debugPrint('Apple userIdentifier:   ${credential.userIdentifier}');
+      /*debugPrint('Apple userIdentifier:   ${credential.userIdentifier}');
       debugPrint('Apple authorizationCode:${credential.authorizationCode}');
-      debugPrint('Apple identityToken:    ${credential.identityToken}');
+      debugPrint('Apple identityToken:    ${credential.identityToken}');*/
       await _sendTokenToBackend(credential.identityToken, "Apple");
 
       if (mounted) Navigator.pop(context, 'apple');

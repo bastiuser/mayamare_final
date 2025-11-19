@@ -57,8 +57,6 @@
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NFCReaderUsageDescription</key>
-	<string>Diese App benötigt Zugriff auf NFC, um Tags zu lesen</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Die Kamera wird benötigt, um QR-Codes des Armbands zu scannen.</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>

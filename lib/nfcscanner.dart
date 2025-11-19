@@ -464,7 +464,7 @@ class _NFCscannerState extends State<NFCscanner> {
                   ),
                   child: SingleChildScrollView(
                     child: Padding(
-                      padding: EdgeInsets.only(top: h * 0.1),
+                      padding: EdgeInsets.only(),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -478,148 +478,103 @@ class _NFCscannerState extends State<NFCscanner> {
                                     : !switcher
                                         ? (Platform.isIOS
                                             // ---------- iOS: QR-SCANNER ----------
-                                            ? Column(
-                                                key:
-                                                    const ValueKey('ios-qr'),
-                                                children: [
-                                                  Container(
-                                                    width: w * 0.55,
-                                                    height: w * 0.55,
-                                                    decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              24),
-                                                      color: const Color(
-                                                          0xFF111111),
-                                                    ),
-                                                    clipBehavior:
-                                                        Clip.antiAlias,
-                                                    child: Stack(
-                                                      fit: StackFit.expand,
-                                                      children: [
-                                                        MobileScanner(
-                                                          controller:
-                                                              _qrController,
-                                                          onDetect: (capture) async {
-                                                            if (isPending) {
-                                                              return;
-                                                            }
-                                                            final codes =
-                                                                capture
-                                                                    .barcodes;
-                                                            if (codes.isEmpty) {
-                                                              return;
-                                                            }
-                                                            final raw = codes
-                                                                .first
-                                                                .rawValue;
-                                                            if (raw == null ||
-                                                                raw.isEmpty) {
-                                                              return;
-                                                            }
-                                                            await _onQrDetected(
-                                                                raw);
-                                                          },
-                                                        ),
-                                                        Align(
-                                                          alignment:
-                                                              Alignment.topCenter,
-                                                          child: Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .all(12),
-                                                            child: Text(
-                                                              'Richte die Kamera auf den QR-Code\ndes Tablets',
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .center,
-                                                              style: TextStyle(
-                                                                color: Colors
-                                                                    .white
-                                                                    .withOpacity(
-                                                                        0.9),
-                                                                fontSize: 14,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w600,
+                                            ? Padding(
+                                                padding: EdgeInsets.only(
+                                                    top: h * 0.03),
+                                                child: Column(
+                                                  key: const ValueKey('ios-qr'),
+                                                  children: [
+                                                    Container(
+                                                      width: w * 0.55,
+                                                      height: w * 0.55,
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(24),
+                                                        color: const Color(
+                                                            0xFF111111),
+                                                      ),
+                                                      clipBehavior:
+                                                          Clip.antiAlias,
+                                                      child: Stack(
+                                                        fit: StackFit.expand,
+                                                        children: [
+                                                          MobileScanner(
+                                                            controller:
+                                                                _qrController,
+                                                            onDetect:
+                                                                (capture) async {
+                                                              if (isPending) {
+                                                                return;
+                                                              }
+                                                              final codes =
+                                                                  capture
+                                                                      .barcodes;
+                                                              if (codes
+                                                                  .isEmpty) {
+                                                                return;
+                                                              }
+                                                              final raw = codes
+                                                                  .first
+                                                                  .rawValue;
+                                                              if (raw == null ||
+                                                                  raw.isEmpty) {
+                                                                return;
+                                                              }
+                                                              await _onQrDetected(
+                                                                  raw);
+                                                            },
+                                                          ),
+                                                          Align(
+                                                            alignment: Alignment
+                                                                .topCenter,
+                                                            child: Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(12),
+                                                              child: Text(
+                                                                'Richte die Kamera auf den QR-Code\ndes Tablets',
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .center,
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: Colors
+                                                                      .white
+                                                                      .withOpacity(
+                                                                          0.9),
+                                                                  fontSize: 14,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600,
+                                                                ),
                                                               ),
                                                             ),
                                                           ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    const SizedBox(height: 12),
+                                                    Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        IconButton(
+                                                          tooltip:
+                                                              'Kamera wechseln',
+                                                          onPressed: () async {
+                                                            await _qrController
+                                                                ?.switchCamera();
+                                                          },
+                                                          icon: const Icon(Icons
+                                                              .cameraswitch),
                                                         ),
                                                       ],
                                                     ),
-                                                  ),
-                                                  const SizedBox(height: 12),
-                                                  Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      IconButton(
-                                                        tooltip:
-                                                            'Kamera wechseln',
-                                                        onPressed: () async {
-                                                          await _qrController
-                                                              ?.switchCamera();
-                                                        },
-                                                        icon: const Icon(Icons
-                                                            .cameraswitch),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  const SizedBox(height: 8),
-                                                  const Text(
-                                                    'Der QR-Code wird automatisch erkannt und verbunden.',
-                                                    textAlign: TextAlign.center,
-                                                    style: TextStyle(
-                                                      color: Color(0xFF727272),
-                                                      fontSize: 12,
-                                                      fontFamily: 'Montserrat',
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                    ),
-                                                  ),
-                                                  if (isPending) ...[
-                                                    const SizedBox(height: 16),
-                                                    ThreeDotsLoader(),
-                                                  ],
-                                                ],
-                                              )
-                                            // ---------- Android: NFC ----------
-                                            : Column(
-                                                key: const ValueKey(
-                                                    'android-nfc'),
-                                                children: [
-                                                  SizedBox(
-                                                    width: w * 0.7,
-                                                    height: 8 + h * 0.05,
-                                                    child: ElevatedButton(
-                                                      style: ElevatedButton
-                                                          .styleFrom(
-                                                        backgroundColor:
-                                                            const Color(
-                                                                0xFFD9D9D9),
-                                                      ),
-                                                      onPressed: () =>
-                                                          scanTag(context),
-                                                      child: const Text(
-                                                        'JETZT VERBINDEN',
-                                                        style: TextStyle(
-                                                          color: Colors.black,
-                                                          fontSize: 14,
-                                                          fontFamily:
-                                                              'Montserrat',
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Padding(
-                                                    padding: EdgeInsets.only(
-                                                        top: h * 0.02),
-                                                    child: const Text(
-                                                      'Halte dein Armband in die Nähe\ndeines Handys und drücke auf\n“JETZT VERBINDEN”',
+                                                    const SizedBox(height: 8),
+                                                    const Text(
+                                                      'Der QR-Code wird automatisch erkannt und verbunden.',
                                                       textAlign:
                                                           TextAlign.center,
                                                       style: TextStyle(
@@ -632,24 +587,83 @@ class _NFCscannerState extends State<NFCscanner> {
                                                             FontWeight.w600,
                                                       ),
                                                     ),
-                                                  ),
-                                                  if (isPending) ...[
-                                                    const SizedBox(height: 16),
-                                                    ThreeDotsLoader(),
+                                                    if (isPending) ...[
+                                                      const SizedBox(
+                                                          height: 16),
+                                                      ThreeDotsLoader(),
+                                                    ],
                                                   ],
-                                                ],
+                                                ),
+                                              )
+                                            // ---------- Android: NFC ----------
+                                            : Padding(
+                                                padding: EdgeInsets.only(
+                                                    top: h * 0.1),
+                                                child: Column(
+                                                  key: const ValueKey(
+                                                      'android-nfc'),
+                                                  children: [
+                                                    SizedBox(
+                                                      width: w * 0.7,
+                                                      height: 8 + h * 0.05,
+                                                      child: ElevatedButton(
+                                                        style: ElevatedButton
+                                                            .styleFrom(
+                                                          backgroundColor:
+                                                              const Color(
+                                                                  0xFFD9D9D9),
+                                                        ),
+                                                        onPressed: () =>
+                                                            scanTag(context),
+                                                        child: const Text(
+                                                          'JETZT VERBINDEN',
+                                                          style: TextStyle(
+                                                            color: Colors.black,
+                                                            fontSize: 14,
+                                                            fontFamily:
+                                                                'Montserrat',
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                      padding: EdgeInsets.only(
+                                                          top: h * 0.02),
+                                                      child: const Text(
+                                                        'Halte dein Armband in die Nähe\ndeines Handys und drücke auf\n“JETZT VERBINDEN”',
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        style: TextStyle(
+                                                          color:
+                                                              Color(0xFF727272),
+                                                          fontSize: 12,
+                                                          fontFamily:
+                                                              'Montserrat',
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    if (isPending) ...[
+                                                      const SizedBox(
+                                                          height: 16),
+                                                      ThreeDotsLoader(),
+                                                    ],
+                                                  ],
+                                                ),
                                               ))
                                         : Center(
                                             child: Padding(
-                                              padding: EdgeInsets.only(
-                                                  top: h * 0.0),
+                                              padding:
+                                                  EdgeInsets.only(top: h * 0.0),
                                               child: AnimatedSwitcher(
                                                 duration: const Duration(
                                                     milliseconds: 500),
                                                 child: switcher
                                                     ? Column(
-                                                        key:
-                                                            const ValueKey(2),
+                                                        key: const ValueKey(2),
                                                         children: [
                                                           SvgPicture.asset(
                                                             'assets/icon_watch.svg',
@@ -657,11 +671,10 @@ class _NFCscannerState extends State<NFCscanner> {
                                                                 'A red up arrow',
                                                           ),
                                                           Padding(
-                                                            padding: EdgeInsets
-                                                                .only(
+                                                            padding:
+                                                                EdgeInsets.only(
                                                               top: h * 0.04,
-                                                              bottom:
-                                                                  h * 0.02,
+                                                              bottom: h * 0.02,
                                                             ),
                                                             child: const Text(
                                                               'Erfolgreich verbunden!',
