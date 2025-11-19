@@ -480,7 +480,7 @@ class _NFCscannerState extends State<NFCscanner> {
                                             // ---------- iOS: QR-SCANNER ----------
                                             ? Padding(
                                                 padding: EdgeInsets.only(
-                                                    top: h * 0.03),
+                                                    top: h * 0.02),
                                                 child: Column(
                                                   key: const ValueKey('ios-qr'),
                                                   children: [
