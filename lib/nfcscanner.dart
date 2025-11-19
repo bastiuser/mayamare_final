@@ -474,7 +474,11 @@ class _NFCscannerState extends State<NFCscanner> {
                               child: AnimatedSwitcher(
                                 duration: const Duration(milliseconds: 0),
                                 child: isPending
-                                    ? ThreeDotsLoader()
+                                    ? Padding(
+                                      padding: EdgeInsets.only(
+                                                    top: h * 0.1),
+                                      child: ThreeDotsLoader(),
+                                    )
                                     : !switcher
                                         ? (Platform.isIOS
                                             // ---------- iOS: QR-SCANNER ----------
@@ -657,7 +661,7 @@ class _NFCscannerState extends State<NFCscanner> {
                                         : Center(
                                             child: Padding(
                                               padding:
-                                                  EdgeInsets.only(top: h * 0.0),
+                                                  EdgeInsets.only(top: h * 0.1),
                                               child: AnimatedSwitcher(
                                                 duration: const Duration(
                                                     milliseconds: 500),
